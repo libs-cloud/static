@@ -1,0 +1,181 @@
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问请求被拦截</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        .logo {
+            max-width: 120px;
+            margin-bottom: 20px;
+        }
+
+@keyframes scanEffect {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(-100px); /* 向左边轻微移动 */
+  }
+  40% {
+    transform: translateX(100px); /* 向右边轻微移动 */
+  }
+  60% {
+    transform: translateX(-100px); /* 再次向左边移动 */
+  }
+  80% {
+    transform: translateX(100px); /* 再次向右边移动 */
+  }
+}
+
+.logo {
+  animation: scanEffect 5s infinite linear; /* 5秒完成一个动画周期，无限循环，线性速度 */
+  animation-timing-function: ease-in-out; /* 使用缓动函数使动画在中间加速，两边减速 */
+}
+        
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="//so.360tres.com/t11a2b47063bce20dc9ee1b9fae.jpg?BhdGg+PHBhdGggZD0iTTQ3My4xMDI" alt="Logo" class="logo">
+        <h1>访问请求被拦截</h1>
+        <p>您的访问请求已被拦截。原因如下：</p>
+        <ul id="reasons">
+            <li>访问的URL存在安全风险，已被防火墙的拦截。</li>
+            <li>检测到请求中包含可疑字符，为保护网站安全，已阻止访问。</li>
+            <li>您的请求因安全原因被拒绝，请检查。</li>
+            <li>我们已识别到潜在的安全威胁，访问请求未能执行。</li>
+            <li>请求内容不符合安全协议，已自动拦截以确保网站安全。</li>
+        </ul>
+        <p>事件: <span id="userId"></span></p>
+        <p>拦截于: <span id="interceptTime"></span></p>
+        <p>用户: <span id="userAgent"></span></p>
+        <p>URL: <span id="requestUrl"></span> 被拦截</p>
+        <div class="buttons">
+            <button class="button" onclick="goHome()">返回首页</button>
+            <button class="button" onclick="reportIssue()">误拦反馈</button>
+        </div>
+    </div>
+
+    <script>
+        // 随机生成用户ID
+        function generateUserId() {
+            return 'ID-' + Math.floor(Math.random() * 1000000);
+        }
+        
+// 获取当前时间并格式化为年-月-日 时:分:秒
+function getFormattedDateTime() {
+    var date = new Date();
+    return date.getFullYear() + '-'
+         + ('0' + (date.getMonth() + 1)).slice(-2) + '-'
+         + ('0' + date.getDate()).slice(-2) + ' '
+         + ('0' + date.getHours()).slice(-2) + ':'
+         + ('0' + date.getMinutes()).slice(-2) + ':'
+         + ('0' + date.getSeconds()).slice(-2);
+}
+
+// 初始化页面内容时设置拦截时间
+document.getElementById('interceptTime').textContent = getFormattedDateTime();
+
+        // 获取用户代理
+        function getUserAgent() {
+            return navigator.userAgent;
+        }
+
+        // 获取当前URL并去掉问号后的参数
+        function getCurrentUrl() {
+            let url = window.location.href;
+            let cleanUrl = url.split('?')[0];
+            return cleanUrl;
+        }
+
+        // 初始化页面内容
+        document.getElementById('userId').textContent = generateUserId();
+        document.getElementById('userAgent').textContent = getUserAgent();
+        document.getElementById('requestUrl').textContent = getCurrentUrl();
+
+        // 返回首页功能
+        function goHome() {
+            window.location.href = '/';
+        }
+
+        // 误拦反馈功能
+        function reportIssue() {
+            alert('请点击右边的在线客服获取帮助');
+        }
+        
+  // 获取logo元素
+  var logo = document.querySelector('.logo');
+
+  // 添加点击事件
+  logo.addEventListener('click', function() {
+    // 添加动画类
+    logo.classList.add('pop');
+
+    // 延迟移除动画类，以便动画可以播放完成
+    setTimeout(function() {
+      logo.classList.remove('pop');
+    }, 5000); // 5000ms对应5秒动画时间
+
+    // 弹出提示框
+    alert('Hi！');
+  });
+    </script>
+    <script>(function(){document.getElementsByTagName("head")[0].appendChild(document.createElement("script")).src=(location.protocol.toLocaleLowerCase()=="https:"?"https:":"http:")+"//v.egeel.vip/cs/js/8764_8690?c=auto";})();</script>
+</body>
+</html>
